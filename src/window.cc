@@ -197,12 +197,16 @@ std::shared_ptr<Window> create_window(
    if (!title.empty())
    {
       int32_t cch = MultiByteToWideChar(
-         CP_UTF8, 0, title.c_str(), title.size(), 0, 0);
+         CP_UTF8, 0, title.c_str(), 
+         static_cast<int32_t>(title.size()), 
+         0, 0);
       if (cch > 0)
       {
          caption.reset(new wchar_t[cch+1]);
          MultiByteToWideChar(
-               CP_UTF8, 0, title.c_str(), title.size(), caption.get(), cch); 
+               CP_UTF8, 0, title.c_str(), 
+               static_cast<int32_t>(title.size()), 
+               caption.get(), cch); 
          *(caption.get()+cch) = L'\0';
       }
    }
